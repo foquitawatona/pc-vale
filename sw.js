@@ -1,9 +1,10 @@
 // Cambia este número cada vez que subas una versión nueva
-const VERSION = 'pc-vale-v2.0b';
+const VERSION = 'pc-vale-v2.0d';
 const ARCHIVOS = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(VERSION).then(c => c.addAll(ARCHIVOS)).then(() => self.skipWaiting()));
+  // Guarda cada archivo por separado: si uno falla, el resto igual queda guardado
+  e.waitUntil(caches.open(VERSION).then(c => Promise.allSettled(ARCHIVOS.map(f => c.add(f)))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', e => {
