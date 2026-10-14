@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ahorro PC de Vale</title>
+<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#fdf2f5">
+<meta name="description" content="Ahorro para el PC gamer de Vale">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap');
+:root{
+  --bg:#fdf2f5; --card:#ffffff; --soft:#fde3ec; --soft2:#fbd3e1; --accent:#b04a6e; --accent2:#a3405f;
+  --bar:#f7b8cc; --text:#4a3a42; --muted:#7a5a68; --line:#f3d3de; --ok:#3f8f6b; --okbg:#e3f5ec;
+  --lila:#c9b6ff;
+  --ink:color-mix(in srgb,var(--accent) 70%,#3a1020);
+  --shadow:0 1px 2px rgba(120,40,70,.05),0 10px 30px -8px rgba(176,74,110,.18);
+  --glass:rgba(255,255,255,.72);
+  color-scheme:only light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
+body{margin:0;min-height:100vh;color:var(--text);font-family:'Nunito',system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+  background:var(--bg);
+  background:radial-gradient(700px 420px at 105% -8%,color-mix(in srgb,var(--bar) 38%,transparent),transparent 70%),
+             radial-gradient(600px 420px at -15% 28%,color-mix(in srgb,var(--lila) 22%,transparent),transparent 70%),
+             radial-gradient(500px 380px at 110% 75%,color-mix(in srgb,var(--bar) 18%,transparent),transparent 70%),var(--bg);
+  background-attachment:fixed}
+.wrap{max-width:560px;margin:0 auto;padding:max(22px,env(safe-area-inset-top)) 16px 56px}
+h1,h2,.num{font-family:'Fredoka',system-ui,sans-serif}
+.top{display:flex;align-items:center;gap:12px;margin:2px 2px 18px}
+.logo{width:46px;height:46px;border-radius:16px;flex:0 0 46px;display:grid;place-items:center;font-size:22px;
+  background:linear-gradient(140deg,var(--card),var(--soft));box-shadow:var(--shadow);border:1px solid var(--line)}
+h1{font-size:26px;margin:0;color:var(--ink);font-weight:700;line-height:1.1;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:3px 0 0;font-weight:600;font-size:14.5px}
+.card{background:var(--card);border-radius:26px;padding:20px;box-shadow:var(--shadow);margin-bottom:14px;border:1px solid var(--line);
+  animation:up .55s cubic-bezier(.2,.8,.2,1) both}
+.card:nth-of-type(2){animation-delay:.05s}.card:nth-of-type(3){animation-delay:.1s}.card:nth-of-type(4){animation-delay:.15s}.card:nth-of-type(5){animation-delay:.2s}.card:nth-of-type(6){animation-delay:.25s}
+@keyframes up{from{opacity:0;transform:translateY(12px)}}
+h2{display:flex;align-items:center;gap:10px;font-size:18px;margin:0 0 14px;color:var(--text);font-weight:600}
+.hi{width:32px;height:32px;border-radius:11px;display:grid;place-items:center;font-size:16px;background:var(--soft);flex:0 0 32px}
+/* hero */
+.hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--soft) 75%,var(--card)) 0%,var(--card) 58%);position:relative;overflow:hidden}
+.hero-card::after{content:"";position:absolute;right:-60px;top:-60px;width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,color-mix(in srgb,var(--bar) 45%,transparent),transparent 70%);pointer-events:none}
+.hero{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;position:relative;z-index:1}
+.label{font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+.big{font-size:42px;font-weight:700;line-height:1.05;color:var(--text);margin-top:4px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.meta{color:var(--muted);font-weight:700;font-size:14px;margin-top:2px}
+.pill{font:700 15px 'Fredoka',system-ui,sans-serif;color:var(--ink);background:var(--card);border:1px solid var(--line);padding:6px 12px;border-radius:99px;box-shadow:var(--shadow);white-space:nowrap}
+.bar{height:16px;background:color-mix(in srgb,var(--soft) 80%,var(--line));border-radius:99px;margin:18px 0 8px;position:relative;z-index:1;box-shadow:inset 0 1px 2px rgba(0,0,0,.06)}
+.bar>i{display:block;height:100%;width:0;min-width:16px;border-radius:99px;position:relative;
+  background:linear-gradient(90deg,var(--bar),var(--accent));transition:width 1s cubic-bezier(.2,.8,.2,1);overflow:hidden}
+.bar>i::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);background-size:220% 100%;animation:shine 3s ease-in-out infinite}
+.bar>i::after{content:"";position:absolute;right:3px;top:3px;width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.35)}
+@keyframes shine{0%{background-position:120% 0}60%,100%{background-position:-120% 0}}
+.barrow{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-weight:700;position:relative;z-index:1}
+.barrow b{color:var(--text)}
+.turnos{margin-top:16px;background:var(--glass);border:1px solid var(--line);border-radius:20px;padding:14px;display:flex;gap:14px;align-items:center;position:relative;z-index:1;backdrop-filter:blur(6px)}
+.turnos .n{font-family:'Fredoka',system-ui,sans-serif;font-size:30px;font-weight:700;color:var(--ink);width:68px;height:68px;flex:0 0 68px;border-radius:50%;display:grid;place-items:center;line-height:1;
+  background:var(--card);box-shadow:inset 0 0 0 4px var(--soft),0 6px 16px -6px color-mix(in srgb,var(--accent) 45%,transparent)}
+.turnos p{margin:0;font-weight:700;line-height:1.35}
+.turnos small{color:var(--muted);font-weight:600;font-size:12.5px}
+.next{display:flex;align-items:center;gap:12px;margin-top:10px;padding:10px 12px;border-radius:16px;background:var(--soft);position:relative;z-index:1}
+.nic{width:36px;height:36px;border-radius:12px;background:var(--card);display:grid;place-items:center;font-size:18px;flex:0 0 36px}
+.nt{flex:1;min-width:0;line-height:1.25}
+.nt small{display:block;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.nt b{font-size:15px}
+#nextLeft{font-weight:800;font-size:13px;color:var(--ink);text-align:right;white-space:nowrap}
+/* sumar */
+.amount{display:flex;align-items:center;background:var(--soft);border-radius:18px;padding:6px 16px;border:2px solid transparent;transition:border-color .2s,box-shadow .2s}
+.amount:focus-within{border-color:var(--bar);box-shadow:0 0 0 4px color-mix(in srgb,var(--bar) 25%,transparent)}
+.amount b{font-family:'Fredoka',system-ui,sans-serif;font-size:28px;color:var(--ink)}
+.amount input{flex:1;min-width:0;border:0;background:transparent;font:600 30px 'Fredoka',system-ui,sans-serif;color:var(--text);padding:10px 6px;outline:none;font-variant-numeric:tabular-nums}
+.amount input::placeholder{color:color-mix(in srgb,var(--muted) 55%,transparent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);font:800 14px 'Nunito',system-ui,sans-serif;padding:9px 14px;border-radius:99px;cursor:pointer;transition:transform .12s,background .2s}
+.chip.hl{background:var(--soft);border-color:color-mix(in srgb,var(--bar) 60%,transparent)}
+.chip:active{transform:scale(.94);background:var(--soft2)}
+.note{width:100%;border:1px solid var(--line);background:transparent;color:var(--text);font:600 15px 'Nunito',system-ui,sans-serif;border-radius:16px;padding:12px 14px;margin-bottom:12px;outline:none;transition:border-color .2s}
+.note:focus{border-color:var(--bar)}
+.note::placeholder{color:var(--muted);opacity:.8}
+.row{display:flex;gap:10px}
+.btn{flex:1;border:0;border-radius:18px;padding:15px;font:700 16px 'Fredoka',system-ui,sans-serif;cursor:pointer;transition:transform .12s,box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.btn.main{color:#fff;background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 55%,var(--bar)));box-shadow:0 10px 22px -10px color-mix(in srgb,var(--accent) 80%,transparent)}
+.btn.ghost{background:var(--soft);color:var(--ink);flex:0 0 auto;padding:15px 18px}
+.err{color:var(--ink);font-weight:700;font-size:14px;min-height:18px;margin-top:8px}
+/* piezas */
+.parts{list-style:none;margin:0;padding:0}
+.parts li{display:flex;align-items:center;gap:12px;padding:11px 0}
+.parts li+li{border-top:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.ic{position:relative;width:44px;height:44px;border-radius:15px;background:var(--soft);display:grid;place-items:center;font-size:20px;flex:0 0 44px;transition:.4s}
+.coin{width:22px;height:22px;display:block;animation:coinflip 3.2s ease-in-out infinite}
+.empty .e .coin{width:40px;height:40px;animation-duration:2.4s}
+@keyframes coinflip{0%,55%,100%{transform:scaleX(1)}70%{transform:scaleX(.12)}85%{transform:scaleX(1)}}
+.ic>span{filter:grayscale(1);opacity:.45;transition:.4s}
+.parts li.done .ic>span,.parts li.can .ic>span,.parts li.gift .ic>span{filter:none;opacity:1}
+.parts li.done .ic,.parts li.gift .ic{background:linear-gradient(140deg,var(--soft),var(--soft2))}
+.parts li.done .ic::after{content:"✓";position:absolute;right:-4px;bottom:-4px;width:18px;height:18px;border-radius:50%;background:var(--ok);color:#fff;font:800 11px/18px 'Nunito',sans-serif;text-align:center;border:2px solid var(--card)}
+.pinfo{flex:1;min-width:0}
+.pname{font-weight:800;font-size:15px}
+.pdesc{color:var(--muted);font-size:12.5px;font-weight:600;line-height:1.3}
+.pmini{height:6px;background:var(--soft);border-radius:99px;margin-top:7px;overflow:hidden}
+.pmini i{display:block;height:100%;background:linear-gradient(90deg,var(--bar),var(--accent));border-radius:99px;transition:width .9s}
+.pr{text-align:right;font:600 15px 'Fredoka',system-ui,sans-serif;white-space:nowrap}
+.tag{display:inline-block;font:800 11px 'Nunito',system-ui,sans-serif;padding:3px 9px;border-radius:99px;margin-top:4px}
+.tag.ok{background:var(--okbg);color:var(--ok)}
+.tag.gift{background:var(--soft2);color:var(--ink)}
+.group{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:16px 0 4px}
+.group:first-child{margin-top:0}
+.group::after{content:"";flex:1;height:1px;background:var(--line)}
+.group+li{border-top:0!important}
+/* historial */
+.hist{list-style:none;margin:0;padding:0}
+.hist li{display:flex;align-items:center;gap:12px;padding:11px 0}
+.hist li+li{border-top:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.hdot{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;flex:0 0 36px;font:700 18px 'Fredoka',system-ui,sans-serif;background:var(--soft);color:var(--ink)}
+.hdot.minus{background:color-mix(in srgb,var(--muted) 14%,transparent);color:var(--muted)}
+.hist .d{flex:1;min-width:0;font-size:12.5px;color:var(--muted);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hist .d b{color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;white-space:normal;font-size:14.5px;overflow:hidden;line-height:1.25}
+.hist .amt{font-family:'Fredoka',system-ui,sans-serif;font-weight:600;font-size:16px;white-space:nowrap}
+.hist .amt.minus{color:var(--muted)}
+.x{border:0;background:transparent;color:var(--muted);border-radius:10px;padding:7px 9px;font:700 12px 'Nunito',system-ui,sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s}
+.x:hover{background:var(--soft)}
+.x.sure{background:var(--accent);color:#fff}
+.empty{text-align:center;padding:8px 0 4px;color:var(--muted);font-weight:600;display:block!important}
+.empty .e{width:64px;height:64px;margin:0 auto 10px;border-radius:22px;background:var(--soft);display:grid;place-items:center;font-size:30px}
+/* ajustes */
+.set{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+.set .amount{flex:1;min-width:180px}
+.set .amount input{font-size:22px}.set .amount b{font-size:20px}
+.foot{font-size:13px;color:var(--muted);font-weight:600;line-height:1.5}
+details{margin-top:6px;border-top:1px solid var(--line);padding-top:12px}
+details summary{cursor:pointer;font-weight:800;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details summary::after{content:"›";font-size:22px;transform:rotate(90deg);transition:transform .2s;line-height:1}
+details[open] summary::after{transform:rotate(-90deg)}
+details summary::-webkit-details-marker{display:none}
+textarea{width:100%;min-height:80px;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:14px;padding:10px;font:600 12px ui-monospace,monospace;margin:8px 0}
+.warn{background:var(--soft2);border-radius:16px;padding:12px 14px;font-weight:700;font-size:13px;margin-bottom:12px;display:none}
+.toast{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));transform:translate(-50%,130px);background:color-mix(in srgb,var(--accent) 92%,transparent);color:#fff;padding:14px 20px;border-radius:20px;font:600 16px 'Fredoka',system-ui,sans-serif;
+  box-shadow:0 14px 30px -10px color-mix(in srgb,var(--accent) 70%,transparent);backdrop-filter:blur(8px);transition:transform .45s cubic-bezier(.2,.9,.3,1.25),opacity .3s;z-index:9;opacity:0;visibility:hidden;max-width:calc(100% - 32px);text-align:center}
+.toast.on{transform:translate(-50%,0);opacity:1;visibility:visible}
+.conf{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:8}
+.conf i{position:absolute;top:-12px;width:9px;height:14px;border-radius:3px;animation:fall 2.4s ease-in forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.7}}
+/* PC que se arma */
+.build{display:block;width:100%;height:auto;max-width:420px;margin:0 auto}
+.build .ghost{fill:none;stroke:var(--muted);stroke-opacity:.35;stroke-width:1.5;stroke-dasharray:5 5}
+.build .pt{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.85);transition:opacity .6s,transform .6s cubic-bezier(.2,.9,.3,1.3)}
+.build .has>.pt{opacity:1;transform:none}
+.build .has>.ghost{display:none}
+.build .fan{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite}
+.build .rgbl{filter:url(#glow)}
+.build .huer{animation:hue 5s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes hue{to{filter:hue-rotate(360deg)}}
+.buildtxt{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-weight:700;font-size:13px;margin-top:10px}
+#buildHint{text-align:right;line-height:1.3}
+.buildtxt{gap:12px}
+.buildtxt #buildCount{white-space:nowrap;flex:0 0 auto;font:700 13px 'Fredoka',system-ui,sans-serif;color:var(--ink);background:var(--soft);padding:5px 11px;border-radius:99px}
+/* bordes RGB al completar */
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+body.done .card{border:2px solid transparent;background:linear-gradient(var(--card),var(--card)) padding-box,conic-gradient(from var(--ang),#ff5fa2,#ffb86b,#ffe66d,#6bffb8,#6bc8ff,#b98cff,#ff5fa2) border-box;animation:spinb 4s linear infinite;box-shadow:0 0 22px -4px rgba(255,95,162,.35)}
+body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--soft) 75%,var(--card)) 0%,var(--card) 58%) padding-box,conic-gradient(from var(--ang),#ff5fa2,#ffb86b,#ffe66d,#6bffb8,#6bc8ff,#b98cff,#ff5fa2) border-box}
+@keyframes spinb{to{--ang:360deg}}
+@media (prefers-reduced-motion: reduce){.coin,.build .fan,.build .huer,body.done .card,.card,.bar>i::before{animation:none}}
+@media (max-width:380px){.big{font-size:34px}.turnos .n{width:58px;height:58px;flex-basis:58px;font-size:26px}}
+.ver{opacity:.6;font-size:11px}
+.foot-end{text-align:center;margin-top:18px}
+.foot-end #tFoot{font:600 15px 'Fredoka',system-ui,sans-serif;color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="logo" aria-hidden="true">🎀</div>
+    <div>
+      <h1 id="tTitle">Mi PC gamer 💗</h1>
+      <p class="sub" id="tSub">Cada turno te acerca un poquito más</p>
+    </div>
+  </header>
+
+  <div class="warn" id="warn">Este navegador no está guardando datos. Usa “Respaldo” para no perder tu avance.</div>
+
+  <section class="card hero-card">
+    <div class="hero">
+      <div>
+        <div class="label">Llevas ahorrado</div>
+        <div class="big num" id="saved">$0</div>
+        <div class="meta" id="goalTxt">de $655.000 para tu PC</div>
+      </div>
+      <span class="pill" id="pct">0%</span>
+    </div>
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="barrow"><span id="left">Faltan $655.000</span><span>Meta <b id="goalB">$655.000</b></span></div>
+
+    <div class="turnos">
+      <div class="n" id="turnosN">22</div>
+      <p><span id="turnosTxt">turnos de trabajo más y tu PC está completo</span><br><small id="etaTxt">Calculado con $30.000 por turno</small></p>
+    </div>
+    <div class="next" id="nextRow">
+      <span class="nic" id="nextIc">💾</span>
+      <span class="nt"><small id="nextLbl">Próxima pieza</small><b id="nextName">Disco SSD</b></span>
+      <span id="nextLeft"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="hi">🖥️</span>Tu PC se va armando</h2>
+    <svg class="build" id="build" viewBox="0 0 320 300" role="img" aria-label="Dibujo de tu PC: cada pieza aparece cuando juntas su plata">
+      <defs>
+        <linearGradient id="rgbg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ff5fa2"/><stop offset=".35" stop-color="#b98cff"/><stop offset=".7" stop-color="#6bc8ff"/><stop offset="1" stop-color="#6bffb8"/></linearGradient>
+        <linearGradient id="mbg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#4d3c46"/><stop offset="1" stop-color="#33272e"/></linearGradient>
+        <linearGradient id="caseIn" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fdf0f5"/><stop offset="1" stop-color="#f1ebfb"/></linearGradient>
+        <linearGradient id="gpuG" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3b3439"/><stop offset="1" stop-color="#28232700"/><stop offset="1" stop-color="#262125"/></linearGradient>
+        <linearGradient id="metal" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#eeeaec"/><stop offset="1" stop-color="#c9c1c6"/></linearGradient>
+        <pattern id="pins" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r=".7" fill="#8a7480"/></pattern>
+        <pattern id="fins" width="4" height="10" patternUnits="userSpaceOnUse"><rect width="2" height="10" fill="#7d6973"/></pattern>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#7a2a4a" flood-opacity=".18"/></filter>
+        <g id="blades"><path d="M0 0 C-3 -9 3 -15 8 -14 C7 -7 4 -3 0 0Z" /></g>
+      </defs>
+
+      <!-- gabinete -->
+      <g data-p="case">
+        <rect class="ghost" x="6" y="6" width="308" height="288" rx="18"/>
+        <g class="pt">
+          <rect x="6" y="6" width="308" height="288" rx="18" fill="#ffffff" stroke="#eadde3" stroke-width="2" filter="url(#sh)"/>
+          <rect x="15" y="15" width="290" height="270" rx="12" fill="url(#caseIn)"/>
+          <path d="M15 120 L120 15 L170 15 L15 170Z" fill="#ffffff" opacity=".35"/>
+          <path d="M15 215 L215 15 L232 15 L15 232Z" fill="#ffffff" opacity=".25"/>
+        </g>
+      </g>
+
+      <!-- placa madre -->
+      <g data-p="mb">
+        <rect class="ghost" x="26" y="26" width="214" height="248" rx="9"/>
+        <g class="pt">
+          <rect x="26" y="26" width="214" height="248" rx="9" fill="url(#mbg)" filter="url(#sh)"/>
+          <g stroke="#6e5864" stroke-width="1" fill="none" opacity=".75">
+            <path d="M44 150 H92 V188"/><path d="M200 152 V184"/><path d="M62 140 H84"/><path d="M168 112 H178"/><path d="M40 266 H130"/><path d="M226 110 V150 H214"/><path d="M150 186 H196"/>
+          </g>
+          <!-- I/O + VRM -->
+          <rect x="30" y="32" width="24" height="100" rx="5" fill="#5f4b56"/><rect x="33" y="36" width="3" height="92" rx="1.5" fill="#f7b8cc" opacity=".55"/>
+          <rect x="60" y="32" width="96" height="20" rx="5" fill="url(#fins)" stroke="#6b5862"/>
+          <rect x="60" y="32" width="96" height="20" rx="5" fill="none" stroke="#8a7480"/>
+          <!-- socket -->
+          <rect x="88" y="66" width="68" height="68" rx="5" fill="#5c4752" stroke="#8a6a78"/>
+          <rect x="96" y="74" width="52" height="52" rx="3" fill="url(#pins)"/>
+          <!-- slots RAM -->
+          <g fill="#271d23" stroke="#5c4752" stroke-width=".8">
+            <rect x="176" y="40" width="7" height="104" rx="2"/><rect x="187" y="40" width="7" height="104" rx="2"/><rect x="198" y="40" width="7" height="104" rx="2"/><rect x="209" y="40" width="7" height="104" rx="2"/>
+          </g>
+          <!-- 24 pines -->
+          <rect x="224" y="58" width="10" height="44" rx="2" fill="#271d23"/>
+          <g fill="#4a3a42"><rect x="226" y="61" width="6" height="3"/><rect x="226" y="67" width="6" height="3"/><rect x="226" y="73" width="6" height="3"/><rect x="226" y="79" width="6" height="3"/><rect x="226" y="85" width="6" height="3"/><rect x="226" y="91" width="6" height="3"/></g>
+          <!-- M.2 -->
+          <rect x="68" y="158" width="104" height="20" rx="3" fill="none" stroke="#6e5864" stroke-dasharray="3 3"/>
+          <text x="176" y="172" font-family="Nunito,sans-serif" font-size="7" font-weight="800" fill="#8a7480">M.2</text>
+          <!-- chipset -->
+          <rect x="196" y="190" width="30" height="30" rx="5" fill="#5f4b56"/><rect x="201" y="204" width="20" height="2.5" rx="1.25" fill="#f7b8cc" opacity=".6"/>
+          <!-- PCIe -->
+          <rect x="46" y="228" width="172" height="7" rx="2" fill="#271d23" stroke="#5c4752" stroke-width=".8"/>
+          <rect x="46" y="256" width="120" height="6" rx="2" fill="#271d23" stroke="#5c4752" stroke-width=".8"/>
+        </g>
+      </g>
+
+      <!-- CPU -->
+      <g data-p="cpu">
+        <rect class="ghost" x="96" y="74" width="52" height="52" rx="4"/>
+        <g class="pt">
+          <rect x="96" y="74" width="52" height="52" rx="4" fill="url(#metal)" stroke="#b9b1b6"/>
+          <rect x="103" y="81" width="38" height="38" rx="3" fill="none" stroke="#bdb4ba"/>
+          <text x="122" y="101" text-anchor="middle" font-family="Fredoka,sans-serif" font-size="8.5" font-weight="700" fill="#7a6a72">RYZEN</text>
+          <text x="122" y="111" text-anchor="middle" font-family="Fredoka,sans-serif" font-size="6" font-weight="600" fill="#9a8a92">5 5500</text>
+        </g>
+      </g>
+
+      <!-- disipador ARGB -->
+      <g data-p="cool">
+        <circle class="ghost" cx="122" cy="100" r="40"/>
+        <g class="pt">
+          <rect x="78" y="56" width="88" height="88" rx="14" fill="#ffffff" stroke="#e8dfe4" filter="url(#sh)"/>
+          <g class="huer"><circle class="rgbl" cx="122" cy="100" r="35" fill="none" stroke="url(#rgbg)" stroke-width="5"/></g>
+          <circle cx="122" cy="100" r="29" fill="#f6f1f4"/>
+          <g class="fan" fill="#e5d8df"><use href="#blades" transform="translate(122 100)"/><use href="#blades" transform="translate(122 100) rotate(51)"/><use href="#blades" transform="translate(122 100) rotate(103)"/><use href="#blades" transform="translate(122 100) rotate(154)"/><use href="#blades" transform="translate(122 100) rotate(206)"/><use href="#blades" transform="translate(122 100) rotate(257)"/><use href="#blades" transform="translate(122 100) rotate(309)"/><circle cx="122" cy="100" r="22" fill="none"/></g>
+          <circle cx="122" cy="100" r="7" fill="#ffffff" stroke="#e3d6dd"/>
+        </g>
+      </g>
+
+      <!-- RAM -->
+      <g data-p="ram">
+        <rect class="ghost" x="185.5" y="38" width="10" height="108" rx="2"/><rect class="ghost" x="207.5" y="38" width="10" height="108" rx="2"/>
+        <g class="pt">
+          <g filter="url(#sh)">
+            <rect x="185.5" y="38" width="10" height="108" rx="2" fill="#2b2227"/><rect x="207.5" y="38" width="10" height="108" rx="2" fill="#2b2227"/>
+          </g>
+          <rect x="187" y="42" width="7" height="100" rx="1.5" fill="url(#metal)"/><rect x="209" y="42" width="7" height="100" rx="1.5" fill="url(#metal)"/>
+          <rect x="188.5" y="60" width="4" height="22" rx="1" fill="#f7b8cc" opacity=".7"/><rect x="210.5" y="60" width="4" height="22" rx="1" fill="#f7b8cc" opacity=".7"/>
+        </g>
+      </g>
+
+      <!-- SSD M.2 -->
+      <g data-p="ssd">
+        <rect class="ghost" x="70" y="160" width="100" height="16" rx="3"/>
+        <g class="pt">
+          <rect x="70" y="160" width="100" height="16" rx="3" fill="#1f6b4a" filter="url(#sh)"/>
+          <rect x="78" y="163" width="26" height="10" rx="1.5" fill="#1c1c1e"/><rect x="108" y="163" width="26" height="10" rx="1.5" fill="#1c1c1e"/>
+          <rect x="138" y="163.5" width="26" height="9" rx="1.5" fill="#eef2ef"/><rect x="141" y="166.5" width="14" height="1.6" fill="#1f6b4a"/><rect x="141" y="169" width="9" height="1.6" fill="#1f6b4a"/>
+          <rect x="70" y="164" width="4" height="8" fill="#d9b25a"/>
+        </g>
+      </g>
+
+      <!-- GPU -->
+      <g data-p="gpu">
+        <rect class="ghost" x="38" y="194" width="200" height="56" rx="9"/>
+        <g class="pt">
+          <rect x="38" y="194" width="200" height="56" rx="9" fill="#2c272b" filter="url(#sh)"/>
+          <rect x="38" y="194" width="200" height="56" rx="9" fill="none" stroke="#47404a"/>
+          <path d="M46 202 H130 L122 210 H46Z" fill="#3a3338"/><path d="M230 242 H146 L154 234 H230Z" fill="#3a3338"/>
+          <g><circle cx="90" cy="222" r="22" fill="#211d20" stroke="#4a4248"/><g class="fan" fill="#5a5157"><use href="#blades" transform="translate(90 222) scale(1.25)"/><use href="#blades" transform="translate(90 222) rotate(72) scale(1.25)"/><use href="#blades" transform="translate(90 222) rotate(144) scale(1.25)"/><use href="#blades" transform="translate(90 222) rotate(216) scale(1.25)"/><use href="#blades" transform="translate(90 222) rotate(288) scale(1.25)"/><circle cx="90" cy="222" r="21" fill="none"/></g><circle cx="90" cy="222" r="6" fill="#3a3338"/></g>
+          <g><circle cx="186" cy="222" r="22" fill="#211d20" stroke="#4a4248"/><g class="fan" fill="#5a5157"><use href="#blades" transform="translate(186 222) scale(1.25)"/><use href="#blades" transform="translate(186 222) rotate(72) scale(1.25)"/><use href="#blades" transform="translate(186 222) rotate(144) scale(1.25)"/><use href="#blades" transform="translate(186 222) rotate(216) scale(1.25)"/><use href="#blades" transform="translate(186 222) rotate(288) scale(1.25)"/><circle cx="186" cy="222" r="21" fill="none"/></g><circle cx="186" cy="222" r="6" fill="#3a3338"/></g>
+          <rect x="44" y="246" width="188" height="2.5" rx="1.25" fill="#f7b8cc" opacity=".75"/>
+        </g>
+      </g>
+
+      <!-- ventiladores ARGB laterales -->
+      <g data-p="fans">
+        <rect class="ghost" x="248" y="42" width="56" height="56" rx="12"/><rect class="ghost" x="248" y="122" width="56" height="56" rx="12"/><rect class="ghost" x="248" y="202" width="56" height="56" rx="12"/>
+        <g class="pt">
+          <g fill="#ffffff" stroke="#ece2e7" filter="url(#sh)">
+            <rect x="248" y="42" width="56" height="56" rx="12"/><rect x="248" y="122" width="56" height="56" rx="12"/><rect x="248" y="202" width="56" height="56" rx="12"/>
+          </g>
+          <g class="huer">
+            <circle class="rgbl" cx="276" cy="70" r="24" fill="none" stroke="url(#rgbg)" stroke-width="4.5"/>
+            <circle class="rgbl" cx="276" cy="150" r="24" fill="none" stroke="url(#rgbg)" stroke-width="4.5"/>
+            <circle class="rgbl" cx="276" cy="230" r="24" fill="none" stroke="url(#rgbg)" stroke-width="4.5"/>
+          </g>
+          <g fill="#e8dce2">
+            <g class="fan"><use href="#blades" transform="translate(276 70) scale(1.2)"/><use href="#blades" transform="translate(276 70) rotate(72) scale(1.2)"/><use href="#blades" transform="translate(276 70) rotate(144) scale(1.2)"/><use href="#blades" transform="translate(276 70) rotate(216) scale(1.2)"/><use href="#blades" transform="translate(276 70) rotate(288) scale(1.2)"/><circle cx="276" cy="70" r="20" fill="none"/></g>
+            <g class="fan"><use href="#blades" transform="translate(276 150) scale(1.2)"/><use href="#blades" transform="translate(276 150) rotate(72) scale(1.2)"/><use href="#blades" transform="translate(276 150) rotate(144) scale(1.2)"/><use href="#blades" transform="translate(276 150) rotate(216) scale(1.2)"/><use href="#blades" transform="translate(276 150) rotate(288) scale(1.2)"/><circle cx="276" cy="150" r="20" fill="none"/></g>
+            <g class="fan"><use href="#blades" transform="translate(276 230) scale(1.2)"/><use href="#blades" transform="translate(276 230) rotate(72) scale(1.2)"/><use href="#blades" transform="translate(276 230) rotate(144) scale(1.2)"/><use href="#blades" transform="translate(276 230) rotate(216) scale(1.2)"/><use href="#blades" transform="translate(276 230) rotate(288) scale(1.2)"/><circle cx="276" cy="230" r="20" fill="none"/></g>
+          </g>
+          <g fill="#ffffff" stroke="#e3d6dd"><circle cx="276" cy="70" r="6"/><circle cx="276" cy="150" r="6"/><circle cx="276" cy="230" r="6"/></g>
+        </g>
+      </g>
+    </svg>
+    <div class="buildtxt"><span id="buildCount">0 de 0 piezas</span><span id="buildHint">Las con puntitos son las que faltan</span></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="hi"><svg class="coin" viewBox="0 0 32 32" aria-hidden="true"><defs><radialGradient id="cg" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff2a6"/><stop offset=".45" stop-color="#ffcf3d"/><stop offset="1" stop-color="#e09a00"/></radialGradient></defs><circle cx="16" cy="16" r="14.5" fill="#b87400"/><circle cx="16" cy="15.2" r="13.6" fill="url(#cg)"/><circle cx="16" cy="15.2" r="10.4" fill="none" stroke="#fff4b8" stroke-width="1.4" opacity=".75"/><rect x="13.6" y="8.6" width="4.8" height="13.2" rx="2.4" fill="#e39d00"/><rect x="14.4" y="9.4" width="2" height="11.6" rx="1" fill="#fff1a3"/><ellipse cx="10.5" cy="9.5" rx="3.2" ry="1.6" transform="rotate(-35 10.5 9.5)" fill="#fff" opacity=".7"/></svg></span>Sumar ahorro</h2>
+    <label class="amount"><b>$</b><input id="amt" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Monto"></label>
+    <div class="chips" id="chips"></div>
+    <input class="note" id="note" maxlength="60" placeholder="Nota (opcional): turno del sábado, propina…">
+    <div class="row">
+      <button class="btn main" id="add">Guardar 💗</button>
+      <button class="btn ghost" id="sub" title="Registrar que sacaste plata del ahorro">Saqué</button>
+    </div>
+    <div class="err" id="err"></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="hi">🧩</span>Tu PC, pieza por pieza</h2>
+    <ul class="parts" id="parts"></ul>
+  </section>
+
+  <section class="card">
+    <h2><span class="hi">🗓️</span>Historial</h2>
+    <ul class="hist" id="hist"></ul>
+  </section>
+
+  <section class="card">
+    <h2><span class="hi">⚙️</span>Ajustes</h2>
+    <div class="label">Lo que ganas por turno</div>
+    <div class="set">
+      <label class="amount"><b>$</b><input id="perShift" inputmode="numeric" autocomplete="off" aria-label="Ganancia por turno"></label>
+    </div>
+    <p class="foot">Con este valor se calcula cuántos turnos te faltan. Cámbialo si un turno te paga distinto.</p>
+    <details>
+      <summary>Respaldo de tus datos</summary>
+      <p class="foot">Tus datos se guardan en este teléfono. Copia este código y guárdalo (por ejemplo, mándatelo por WhatsApp). Si cambias de teléfono o se borra, lo pegas aquí y recuperas todo.</p>
+      <textarea id="backup" readonly></textarea>
+      <div class="row"><button class="btn ghost" id="copy" style="flex:1">Copiar código</button></div>
+      <textarea id="restoreTxt" placeholder="Pega aquí un código de respaldo"></textarea>
+      <div class="row"><button class="btn ghost" id="restore" style="flex:1">Restaurar</button></div>
+      <div class="err" id="bErr"></div>
+    </details>
+  </section>
+
+  <p class="foot foot-end"><span id="tFoot">Precios aproximados</span><br><span class="ver" id="tVer">versión 1.0</span></p>
+</div>
+<div class="toast" id="toast"></div>
+<div class="conf" id="conf"></div>
+
+<script>
+/* ====== CONFIGURACIÓN: todo lo editable de la app está aquí ====== */
+const CONFIG = /*CONFIG*/{
+  "version": "2.0",
+  "titulo": "Mi PC gamer 💗",
+  "subtitulo": "Cada esfuerzo te acerca un poquito mas :3",
+  "pie": "Con mucho amors de Mati.",
+  "botonGuardar": "Guardar 💗",
+  "gananciaPorTurno": 30000,
+  "botonesRapidos": [
+    5000,
+    10000,
+    20000,
+    50000
+  ],
+  "colores": {
+    "fondo": "#fdf2f5",
+    "tarjetas": "#ffffff",
+    "suave": "#fde3ec",
+    "principal": "#f56698",
+    "barra": "#fe9aba",
+    "texto": "#141414"
+  },
+  "regalo": {
+    "mostrar": true,
+    "emoji": "✨",
+    "nombre": "Memoria RAM",
+    "descripcion": "Apacer NOX · 2×8 GB · regalo de Mati",
+    "precio": 140000,
+    "etiqueta": "Regalo 💝"
+  },
+  "grupos": {
+    "primero": "1° · Primero",
+    "segundo": "2° · Después",
+    "flex": "Cuando estén baratas · cualquier orden",
+    "final": "Al final"
+  },
+  "piezas": [
+    {
+      "emoji": "💾",
+      "nombre": "Disco SSD M.2",
+      "descripcion": "WD Green SN3000 · 1 TB · guarda tus juegos",
+      "precio": 150000,
+      "grupo": "primero"
+    },
+    {
+      "emoji": "🧠",
+      "nombre": "Procesador",
+      "descripcion": "AMD Ryzen 5 5500 · el cerebro",
+      "precio": 90000,
+      "grupo": "segundo"
+    },
+    {
+      "emoji": "🔌",
+      "nombre": "Placa madre",
+      "descripcion": "Conecta todo · B550",
+      "precio": 80000,
+      "grupo": "flex"
+    },
+    {
+      "emoji": "⚡",
+      "nombre": "Fuente de poder",
+      "descripcion": "650 W · le da energía",
+      "precio": 40000,
+      "grupo": "flex"
+    },
+    {
+      "emoji": "🏠",
+      "nombre": "Gabinete",
+      "descripcion": "Sama Neview 3321 · blanco",
+      "precio": 45000,
+      "grupo": "flex"
+    },
+    {
+      "emoji": "❄️",
+      "nombre": "Disipador",
+      "descripcion": "Thermalright ARGB · blanco",
+      "precio": 20000,
+      "grupo": "flex"
+    },
+    {
+      "emoji": "🌀",
+      "nombre": "Ventiladores",
+      "descripcion": "3 ventiladores ARGB blancos",
+      "precio": 20000,
+      "grupo": "flex"
+    },
+    {
+      "emoji": "🎮",
+      "nombre": "Tarjeta de video",
+      "descripcion": "Segunda mano · para jugar fluido",
+      "precio": 210000,
+      "grupo": "final"
+    }
+  ],
+  "mensajesHitos": {
+    "25": "¡25%! Ya llevas un cuarto de tu PC colason! animo💗",
+    "50": "¡La mitad! vas bombaa💣",
+    "75": "¡75%! Ya estas casi!! 🎮",
+    "100": "¡TU PC ESTÁ COMPLETO! VALEEEEE! Felicidades!!🎉"
+  }
+}/*FIN*/;
+/* ================================================================= */
+(function(){
+  const KEY='vale-pc-ahorro-v1';
+  const $=id=>document.getElementById(id);
+  const fmt=n=>'$'+Math.round(n).toLocaleString('es-CL');
+  const C=CONFIG;
+
+  // aplicar textos y colores
+  $('tTitle').textContent=C.titulo; $('tSub').textContent=C.subtitulo; $('tFoot').textContent=C.pie;
+  $('tVer').textContent='versión '+C.version; $('add').textContent=C.botonGuardar;
+  document.title=C.titulo.replace(/[^\p{L}\p{N}\s]/gu,'').trim()||document.title;
+  (function(){
+    const k=C.colores||{}; const st=document.createElement('style');
+    st.textContent=':root{--bg:'+k.fondo+';--card:'+k.tarjetas+';--soft:'+k.suave+';--accent:'+k.principal+';--accent2:'+k.principal+';--bar:'+k.barra+';--text:'+k.texto+'}';
+    document.head.appendChild(st);
+  })();
+  const chips=$('chips');
+  [['turno','+1 turno']].concat((C.botonesRapidos||[]).map(v=>[v,'+'+fmt(v)])).forEach(([v,t])=>{
+    const b=document.createElement('button');b.className=v==='turno'?'chip hl':'chip';b.dataset.v=v;b.textContent=t;chips.appendChild(b);
+  });
+
+  const ORD={primero:0,segundo:1,flex:2,final:3};
+  const GOAL_PARTS=(C.piezas||[]).map((p,i)=>({n:p.nombre,d:p.descripcion,p:Math.max(0,+p.precio||0),ic:p.emoji,g:p.grupo in ORD?p.grupo:'flex',i}))
+    .filter(p=>p.p>0).sort((a,b)=>ORD[a.g]-ORD[b.g]||a.i-b.i);
+  const GOAL=GOAL_PARTS.reduce((a,b)=>a+b.p,0);
+
+  let state={perShift:C.gananciaPorTurno||30000,entries:[],hit:[]};
+  let storageOk=true;
+  function load(){
+    try{const s=localStorage.getItem(KEY); if(s){const o=JSON.parse(s); if(o&&Array.isArray(o.entries)) state=Object.assign(state,o);} }
+    catch(e){storageOk=false}
+    try{localStorage.setItem(KEY+'-t','1');localStorage.removeItem(KEY+'-t')}catch(e){storageOk=false}
+    $('warn').style.display=storageOk?'none':'block';
+  }
+  function save(){ try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){storageOk=false;$('warn').style.display='block'} }
+
+  const parseAmt=v=>parseInt(String(v).replace(/\D/g,''),10)||0;
+  function bindMoney(inp){inp.addEventListener('input',()=>{const n=parseAmt(inp.value);inp.value=n?n.toLocaleString('es-CL'):''})}
+  bindMoney($('amt')); bindMoney($('perShift'));
+
+  const total=()=>Math.max(0,state.entries.reduce((a,e)=>a+e.a,0));
+  const turnos=n=>n+' turno'+(n===1?'':'s');
+
+  function render(){
+    const t=total(), saved=Math.min(t,GOAL), left=Math.max(0,GOAL-t), pct=GOAL?saved/GOAL:0;
+    countTo($('saved'),t); $('goalB').textContent=fmt(GOAL);
+    $('goalTxt').textContent='de '+fmt(GOAL)+' para tu PC';
+    $('barFill').style.width=(pct*100).toFixed(1)+'%';
+    $('pct').textContent=Math.floor(pct*100)+'%';
+    $('left').textContent=left?'Faltan '+fmt(left):'¡Meta lograda!';
+    const ps=state.perShift||30000;
+    const tn=Math.ceil(left/ps);
+    $('turnosN').textContent=left?tn:'🎉';
+    $('turnosTxt').textContent=left?(tn===1?'turno de trabajo más y tu PC está completo':'turnos de trabajo más y tu PC está completo'):'¡Juntaste todo! Tu PC está completo';
+    $('etaTxt').textContent=eta(left,ps);
+
+    let rem=t; const ul=$('parts'); ul.innerHTML=''; const owned={}; let nOwned=0, nAll=0;
+    const own=(name,ok)=>{nAll++; if(ok){nOwned++; const k=kind(name); if(k) owned[k]=true;}};
+    let next=null, lastG='', pool=0, pool2=0;
+    const flex=GOAL_PARTS.filter(p=>p.g==='flex'), flexTotal=flex.reduce((a,b)=>a+b.p,0);
+    const addGroup=txt=>{const g=document.createElement('div');g.className='group';g.textContent=txt;ul.appendChild(g)};
+    const R=C.regalo;
+    if(R&&R.mostrar){own(R.nombre,true);addGroup('Ya lo tienes');ul.appendChild(partLi({ic:R.emoji,n:R.nombre,d:R.descripcion,p:R.precio},'gift',1,R.etiqueta))}
+    GOAL_PARTS.forEach(p=>{
+      if(p.g==='flex'){
+        if(lastG!=='flex'){
+          addGroup(C.grupos.flex); lastG='flex';
+          pool=Math.min(rem,flexTotal); rem-=pool; pool2=pool;
+          if(pool<flexTotal && !next) next={n:'Resto de piezas',ic:'🧩',left:flexTotal-pool};
+        }
+        own(p.n,pool2>=p.p); if(pool2>=p.p) pool2-=p.p; ul.appendChild(partLi(p,pool>=flexTotal?'done':(pool>=p.p?'can':'wait'),Math.min(1,pool/p.p)));
+        return;
+      }
+      if(lastG!==p.g){addGroup(C.grupos[p.g]); lastG=p.g;}
+      const got=Math.min(rem,p.p); rem-=got;
+      if(got<p.p && !next) next={n:p.n,ic:p.ic,left:p.p-got};
+      own(p.n,got>=p.p); ul.appendChild(partLi(p,got>=p.p?'done':'wait',got/p.p));
+    });
+    if(next){const k=Math.ceil(next.left/ps);$('nextIc').textContent=next.ic||'✨';$('nextName').textContent=next.n;$('nextLbl').textContent='Próxima pieza';$('nextLeft').innerHTML='';const a=document.createElement('div');a.textContent='faltan '+fmt(next.left);const b=document.createElement('div');b.style.cssText='font-weight:700;color:var(--muted)';b.textContent='≈'+turnos(k);$('nextLeft').append(a,b)}
+    else{$('nextIc').textContent='💗';$('nextName').textContent='Todas las piezas listas';$('nextLbl').textContent='¡Lo lograste!';$('nextLeft').textContent=''}
+
+    document.querySelectorAll('#build [data-p]').forEach(g=>g.classList.toggle('has',!!owned[g.dataset.p]));
+    $('buildCount').textContent=nOwned+' de '+nAll+' piezas';
+    $('buildHint').textContent=nOwned>=nAll?'¡Está completo! 💗':'Las con puntitos son las que faltan';
+    document.body.classList.toggle('done',GOAL>0&&t>=GOAL);
+
+    renderHist();
+    $('backup').value=btoa(unescape(encodeURIComponent(JSON.stringify({perShift:state.perShift,entries:state.entries}))));
+    milestones(pct);
+  }
+
+  const COIN=document.querySelector('.hi .coin').outerHTML.replace('id="cg"','id="cg2"').replace('url(#cg)','url(#cg2)');
+  const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function countTo(el,to){
+    const from=+(el.dataset.v||0); el.dataset.v=to;
+    if(RM||from===to||!booted){el.textContent=fmt(to);return}
+    const t0=performance.now(),d=700;
+    (function step(now){const k=Math.min(1,(now-t0)/d),e=1-Math.pow(1-k,3);el.textContent=fmt(from+(to-from)*e);if(k<1)requestAnimationFrame(step)})(t0);
+  }
+  function kind(n){
+    n=String(n||'').toLowerCase();
+    if(/placa/.test(n))return 'mb'; if(/procesador|cpu|ryzen/.test(n))return 'cpu'; if(/disipador|cooler|refrig/.test(n))return 'cool';
+    if(/ventilador|fan/.test(n))return 'fans'; if(/video|gpu|gr[aá]fica/.test(n))return 'gpu'; if(/ssd|m\.2|disco/.test(n))return 'ssd';
+    if(/ram|memoria/.test(n))return 'ram'; if(/gabinete|case/.test(n))return 'case'; return null;
+  }
+  function partLi(p,st,frac,giftTag){
+    const li=document.createElement('li'); li.className=st;
+    li.innerHTML='<div class="ic"></div><div class="pinfo"><div class="pname"></div><div class="pdesc"></div>'+(st==='wait'?'<div class="pmini"><i></i></div>':'')+'</div><div class="pr"><div class="pp"></div><span class="tag"></span></div>';
+    const tag=li.querySelector('.tag');
+    if(st==='gift'){tag.className='tag gift';tag.textContent=giftTag||'Regalo'}
+    else if(st==='done'){tag.className='tag ok';tag.textContent='¡Ya alcanza! ✓'}
+    else if(st==='can'){tag.className='tag ok';tag.textContent='Alcanza'}
+    else tag.remove();
+    const sp=document.createElement('span');sp.textContent=p.ic;li.querySelector('.ic').appendChild(sp); li.querySelector('.pname').textContent=p.n; li.querySelector('.pdesc').textContent=p.d;
+    li.querySelector('.pp').textContent=fmt(p.p);
+    const m=li.querySelector('.pmini i'); if(m) m.style.width=(Math.max(0,frac)*100).toFixed(1)+'%';
+    return li;
+  }
+
+  function eta(left,ps){
+    if(!left) return 'Hora de comprar la última pieza';
+    const dep=state.entries.filter(e=>e.a>0);
+    if(dep.length>=2){
+      const first=Math.min(...state.entries.map(e=>e.t)), days=(Date.now()-first)/864e5;
+      if(days>=7){
+        const rate=total()/days;
+        if(rate>0){
+          const d=new Date(Date.now()+left/rate*864e5);
+          return 'A tu ritmo actual: ~'+d.toLocaleDateString('es-CL',{day:'numeric',month:'long',year:'numeric'});
+        }
+      }
+    }
+    return 'Calculado con '+fmt(ps)+' por turno';
+  }
+
+  let pending=null;
+  function renderHist(){
+    const ul=$('hist'); ul.innerHTML='';
+    if(!state.entries.length){
+      ul.innerHTML='<li class="empty"><div class="e">'+COIN+'</div>Aún no hay ahorros.<br>¡El primer turno es el que más cuenta!</li>';
+      return;
+    }
+    [...state.entries].sort((a,b)=>b.t-a.t).slice(0,60).forEach(e=>{
+      const li=document.createElement('li');
+      li.innerHTML='<span class="hdot"></span><span class="d"><b></b><span></span></span><span class="amt"></span><button class="x">Borrar</button>';
+      const a=li.querySelector('.amt'); a.textContent=(e.a<0?'−':'+')+fmt(Math.abs(e.a)); if(e.a<0)a.classList.add('minus');
+      const hd=li.querySelector('.hdot'); hd.textContent=e.a<0?'−':'+'; if(e.a<0)hd.classList.add('minus');
+      li.querySelector('.d b').textContent=e.n||(e.a<0?'Saqué del ahorro':'Ahorro');
+      li.querySelector('.d span').textContent=new Date(e.t).toLocaleDateString('es-CL',{weekday:'short',day:'numeric',month:'short'});
+      const x=li.querySelector('.x');
+      if(pending===e.id){x.textContent='¿Segura?';x.classList.add('sure')}
+      x.onclick=()=>{
+        if(pending===e.id){state.entries=state.entries.filter(z=>z.id!==e.id);pending=null;save();render()}
+        else{pending=e.id;renderHist();setTimeout(()=>{if(pending===e.id){pending=null;renderHist()}},3500)}
+      };
+      ul.appendChild(li);
+    });
+  }
+
+  function addEntry(sign){
+    const v=parseAmt($('amt').value);
+    $('err').textContent='';
+    if(!v){$('err').textContent='Escribe un monto primero';$('amt').focus();return}
+    if(sign<0 && v>total()){$('err').textContent='No puedes sacar más de lo que llevas ('+fmt(total())+')';return}
+    state.entries.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),a:sign*v,t:Date.now(),n:$('note').value.trim().slice(0,60)});
+    $('amt').value='';$('note').value='';
+    save();render();
+    if(sign>0){
+      const left=Math.max(0,GOAL-total()), ps=state.perShift||30000;
+      toast(left?'¡+'+fmt(v)+'! Te faltan ≈'+turnos(Math.ceil(left/ps))+' 💗':'¡Lo lograste! 🎉');
+    }
+  }
+  $('add').onclick=()=>addEntry(1);
+  $('sub').onclick=()=>addEntry(-1);
+  $('amt').addEventListener('keydown',e=>{if(e.key==='Enter')addEntry(1)});
+  chips.addEventListener('click',e=>{
+    const b=e.target.closest('.chip'); if(!b)return;
+    const add=b.dataset.v==='turno'?(state.perShift||30000):+b.dataset.v;
+    const n=parseAmt($('amt').value)+add; $('amt').value=n.toLocaleString('es-CL');
+  });
+  $('perShift').addEventListener('change',()=>{
+    const v=parseAmt($('perShift').value);
+    if(v>=1000){state.perShift=v;save();render()} else $('perShift').value=state.perShift.toLocaleString('es-CL');
+  });
+
+  $('copy').onclick=async()=>{
+    const ta=$('backup');
+    try{await navigator.clipboard.writeText(ta.value);$('bErr').textContent='Copiado ✓'}
+    catch(e){ta.select();$('bErr').textContent='Selecciona el texto y cópialo'}
+  };
+  $('restore').onclick=()=>{
+    try{
+      const o=JSON.parse(decodeURIComponent(escape(atob($('restoreTxt').value.trim()))));
+      if(!o||!Array.isArray(o.entries))throw 0;
+      state.entries=o.entries.filter(e=>e&&typeof e.a==='number'&&typeof e.t==='number').map(e=>({id:String(e.id||Math.random()),a:e.a,t:e.t,n:String(e.n||'').slice(0,60)}));
+      if(o.perShift>=1000)state.perShift=o.perShift;
+      state.hit=[];save();$('perShift').value=state.perShift.toLocaleString('es-CL');$('restoreTxt').value='';
+      $('bErr').textContent='Datos restaurados ✓';render();
+    }catch(e){$('bErr').textContent='Ese código no es válido'}
+  };
+
+  let tt;
+  function toast(m){const el=$('toast');el.textContent=m;el.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('on'),3200)}
+  function confetti(){
+    const c=$('conf'), cols=['#ff7eb6','#f7b8cc','#b98cff','#7ee0ff','#ffd27e','#b04a6e'];
+    for(let i=0;i<70;i++){const p=document.createElement('i');p.style.left=Math.random()*100+'%';p.style.background=cols[i%cols.length];p.style.animationDelay=Math.random()*.6+'s';p.style.animationDuration=(1.8+Math.random()*1.4)+'s';c.appendChild(p)}
+    setTimeout(()=>c.innerHTML='',3600);
+  }
+  let booted=false;
+  function milestones(pct){
+    state.hit=state.hit||[];
+    const p=pct*100;
+    [25,50,75,100].forEach(m=>{
+      if(p>=m && !state.hit.includes(m)){state.hit.push(m);save(); if(booted){confetti();setTimeout(()=>toast((C.mensajesHitos||{})[m]||('¡'+m+'%!')),3300)}}
+      if(p<m && state.hit.includes(m)){state.hit=state.hit.filter(x=>x!==m);save()}
+    });
+  }
+
+  load();
+  $('perShift').value=(state.perShift||30000).toLocaleString('es-CL');
+  render(); booted=true;
+})();
+</script>
+
+<script>
+// Modo app: funciona sin internet y pide que Chrome no borre los datos
+if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
+if(navigator.storage&&navigator.storage.persist){navigator.storage.persisted().then(p=>{if(!p)navigator.storage.persist()}).catch(()=>{});}
+</script>
+</body>
+</html>
