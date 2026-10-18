@@ -155,19 +155,23 @@ textarea{width:100%;min-height:80px;border:1px solid var(--line);background:var(
 .build .has>.ghost{display:none}
 .build .fan{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite}
 .build .rgbl{filter:url(#glow)}
-.build .huer{animation:hue 5s linear infinite}
+.build .huer{animation:breathe 3.6s ease-in-out infinite}
+.build .flow{transform-box:fill-box;transform-origin:center;animation:spin 7s linear infinite}
+.build .lux{filter:url(#glow);animation:breathe 3.6s ease-in-out infinite}
+.build .lux2{filter:url(#glow);animation:breathe 3.6s ease-in-out infinite;animation-delay:-1.8s}
+.build .bloom{animation:breathe 3.6s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.78}50%{opacity:1}}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes hue{to{filter:hue-rotate(360deg)}}
 .buildtxt{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-weight:700;font-size:13px;margin-top:10px}
 #buildHint{text-align:right;line-height:1.3}
 .buildtxt{gap:12px}
 .buildtxt #buildCount{white-space:nowrap;flex:0 0 auto;font:700 13px 'Fredoka',system-ui,sans-serif;color:var(--ink);background:var(--soft);padding:5px 11px;border-radius:99px}
 /* bordes RGB al completar */
 @property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
-body.done .card{border:2px solid transparent;background:linear-gradient(var(--card),var(--card)) padding-box,conic-gradient(from var(--ang),#ff5fa2,#ffb86b,#ffe66d,#6bffb8,#6bc8ff,#b98cff,#ff5fa2) border-box;animation:spinb 4s linear infinite;box-shadow:0 0 22px -4px rgba(255,95,162,.35)}
-body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--soft) 75%,var(--card)) 0%,var(--card) 58%) padding-box,conic-gradient(from var(--ang),#ff5fa2,#ffb86b,#ffe66d,#6bffb8,#6bc8ff,#b98cff,#ff5fa2) border-box}
+body.done .card{border:2px solid transparent;background:linear-gradient(var(--card),var(--card)) padding-box,conic-gradient(from var(--ang),#ffb3cf,#ffffff,#ff9ec4,#ffffff,#ffd1e2,#ffffff,#ffb3cf) border-box;animation:spinb 5s linear infinite;box-shadow:0 0 24px -4px rgba(255,158,196,.55)}
+body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--soft) 75%,var(--card)) 0%,var(--card) 58%) padding-box,conic-gradient(from var(--ang),#ffb3cf,#ffffff,#ff9ec4,#ffffff,#ffd1e2,#ffffff,#ffb3cf) border-box}
 @keyframes spinb{to{--ang:360deg}}
-@media (prefers-reduced-motion: reduce){.coin,.build .fan,.build .huer,body.done .card,.card,.bar>i::before{animation:none}}
+@media (prefers-reduced-motion: reduce){.coin,.build .fan,.build .huer,.build .flow,.build .lux,.build .lux2,.build .bloom,body.done .card,.card,.bar>i::before{animation:none}}
 @media (max-width:380px){.big{font-size:34px}.turnos .n{width:58px;height:58px;flex-basis:58px;font-size:26px}}
 .ver{opacity:.6;font-size:11px}
 .foot-end{text-align:center;margin-top:18px}
@@ -214,14 +218,16 @@ body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--s
     <h2><span class="hi">🖥️</span>Tu PC se va armando</h2>
     <svg class="build" id="build" viewBox="0 0 320 300" role="img" aria-label="Dibujo de tu PC: cada pieza aparece cuando juntas su plata">
       <defs>
-        <linearGradient id="rgbg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ff5fa2"/><stop offset=".35" stop-color="#b98cff"/><stop offset=".7" stop-color="#6bc8ff"/><stop offset="1" stop-color="#6bffb8"/></linearGradient>
+        <linearGradient id="rgbg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffa8c8"/><stop offset=".3" stop-color="#ffffff"/><stop offset=".55" stop-color="#ffc4da"/><stop offset=".8" stop-color="#ffffff"/><stop offset="1" stop-color="#ffa8c8"/></linearGradient>
+        <radialGradient id="bloom"><stop offset="0" stop-color="#ffc2d9" stop-opacity=".9"/><stop offset=".55" stop-color="#ffd9e7" stop-opacity=".35"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+        <linearGradient id="strip" x1="0" x2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#ffb3cf"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
         <linearGradient id="mbg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#4d3c46"/><stop offset="1" stop-color="#33272e"/></linearGradient>
         <linearGradient id="caseIn" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fdf0f5"/><stop offset="1" stop-color="#f1ebfb"/></linearGradient>
         <linearGradient id="gpuG" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3b3439"/><stop offset="1" stop-color="#28232700"/><stop offset="1" stop-color="#262125"/></linearGradient>
         <linearGradient id="metal" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#eeeaec"/><stop offset="1" stop-color="#c9c1c6"/></linearGradient>
         <pattern id="pins" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r=".7" fill="#8a7480"/></pattern>
         <pattern id="fins" width="4" height="10" patternUnits="userSpaceOnUse"><rect width="2" height="10" fill="#7d6973"/></pattern>
-        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur in="SourceGraphic" stdDeviation="3.2" result="b"/><feFlood flood-color="#ff9ec4" flood-opacity=".85"/><feComposite in2="b" operator="in" result="pg"/><feMerge><feMergeNode in="pg"/><feMergeNode in="pg"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         <filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#7a2a4a" flood-opacity=".18"/></filter>
         <g id="blades"><path d="M0 0 C-3 -9 3 -15 8 -14 C7 -7 4 -3 0 0Z" /></g>
       </defs>
@@ -234,6 +240,9 @@ body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--s
           <rect x="15" y="15" width="290" height="270" rx="12" fill="url(#caseIn)"/>
           <path d="M15 120 L120 15 L170 15 L15 170Z" fill="#ffffff" opacity=".35"/>
           <path d="M15 215 L215 15 L232 15 L15 232Z" fill="#ffffff" opacity=".25"/>
+          <ellipse class="bloom" cx="160" cy="268" rx="150" ry="26" fill="url(#bloom)"/>
+          <rect class="lux" x="22" y="19" width="276" height="3" rx="1.5" fill="url(#strip)"/>
+          <rect class="lux2" x="22" y="278" width="276" height="3" rx="1.5" fill="url(#strip)"/>
         </g>
       </g>
 
@@ -246,7 +255,7 @@ body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--s
             <path d="M44 150 H92 V188"/><path d="M200 152 V184"/><path d="M62 140 H84"/><path d="M168 112 H178"/><path d="M40 266 H130"/><path d="M226 110 V150 H214"/><path d="M150 186 H196"/>
           </g>
           <!-- I/O + VRM -->
-          <rect x="30" y="32" width="24" height="100" rx="5" fill="#5f4b56"/><rect x="33" y="36" width="3" height="92" rx="1.5" fill="#f7b8cc" opacity=".55"/>
+          <rect x="30" y="32" width="24" height="100" rx="5" fill="#5f4b56"/><rect class="lux" x="33" y="36" width="3" height="92" rx="1.5" fill="#ffc2d9"/>
           <rect x="60" y="32" width="96" height="20" rx="5" fill="url(#fins)" stroke="#6b5862"/>
           <rect x="60" y="32" width="96" height="20" rx="5" fill="none" stroke="#8a7480"/>
           <!-- socket -->
@@ -263,7 +272,7 @@ body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--s
           <rect x="68" y="158" width="104" height="20" rx="3" fill="none" stroke="#6e5864" stroke-dasharray="3 3"/>
           <text x="176" y="172" font-family="Nunito,sans-serif" font-size="7" font-weight="800" fill="#8a7480">M.2</text>
           <!-- chipset -->
-          <rect x="196" y="190" width="30" height="30" rx="5" fill="#5f4b56"/><rect x="201" y="204" width="20" height="2.5" rx="1.25" fill="#f7b8cc" opacity=".6"/>
+          <rect x="196" y="190" width="30" height="30" rx="5" fill="#5f4b56"/><rect class="lux2" x="201" y="204" width="20" height="2.5" rx="1.25" fill="#ffffff"/>
           <!-- PCIe -->
           <rect x="46" y="228" width="172" height="7" rx="2" fill="#271d23" stroke="#5c4752" stroke-width=".8"/>
           <rect x="46" y="256" width="120" height="6" rx="2" fill="#271d23" stroke="#5c4752" stroke-width=".8"/>
@@ -281,12 +290,12 @@ body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--s
         </g>
       </g>
 
-      <!-- disipador ARGB -->
-      <g data-p="cool">
-        <circle class="ghost" cx="122" cy="100" r="40"/>
+      <!-- disipador (viene con el procesador) -->
+      <g data-p="cpu">
         <g class="pt">
+          <circle class="bloom" cx="122" cy="100" r="52" fill="url(#bloom)"/>
           <rect x="78" y="56" width="88" height="88" rx="14" fill="#ffffff" stroke="#e8dfe4" filter="url(#sh)"/>
-          <g class="huer"><circle class="rgbl" cx="122" cy="100" r="35" fill="none" stroke="url(#rgbg)" stroke-width="5"/></g>
+          <g class="huer"><circle class="rgbl flow" cx="122" cy="100" r="35" fill="none" stroke="url(#rgbg)" stroke-width="5"/></g>
           <circle cx="122" cy="100" r="29" fill="#f6f1f4"/>
           <g class="fan" fill="#e5d8df"><use href="#blades" transform="translate(122 100)"/><use href="#blades" transform="translate(122 100) rotate(51)"/><use href="#blades" transform="translate(122 100) rotate(103)"/><use href="#blades" transform="translate(122 100) rotate(154)"/><use href="#blades" transform="translate(122 100) rotate(206)"/><use href="#blades" transform="translate(122 100) rotate(257)"/><use href="#blades" transform="translate(122 100) rotate(309)"/><circle cx="122" cy="100" r="22" fill="none"/></g>
           <circle cx="122" cy="100" r="7" fill="#ffffff" stroke="#e3d6dd"/>
@@ -301,7 +310,7 @@ body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--s
             <rect x="185.5" y="38" width="10" height="108" rx="2" fill="#2b2227"/><rect x="207.5" y="38" width="10" height="108" rx="2" fill="#2b2227"/>
           </g>
           <rect x="187" y="42" width="7" height="100" rx="1.5" fill="url(#metal)"/><rect x="209" y="42" width="7" height="100" rx="1.5" fill="url(#metal)"/>
-          <rect x="188.5" y="60" width="4" height="22" rx="1" fill="#f7b8cc" opacity=".7"/><rect x="210.5" y="60" width="4" height="22" rx="1" fill="#f7b8cc" opacity=".7"/>
+          <rect class="lux" x="185.5" y="35" width="10" height="5" rx="2.5" fill="#ffc2d9"/><rect class="lux2" x="207.5" y="35" width="10" height="5" rx="2.5" fill="#ffffff"/><rect x="188.5" y="60" width="4" height="22" rx="1" fill="#ffc2d9" opacity=".8"/><rect x="210.5" y="60" width="4" height="22" rx="1" fill="#ffc2d9" opacity=".8"/>
         </g>
       </g>
 
@@ -312,7 +321,7 @@ body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--s
           <rect x="70" y="160" width="100" height="16" rx="3" fill="#1f6b4a" filter="url(#sh)"/>
           <rect x="78" y="163" width="26" height="10" rx="1.5" fill="#1c1c1e"/><rect x="108" y="163" width="26" height="10" rx="1.5" fill="#1c1c1e"/>
           <rect x="138" y="163.5" width="26" height="9" rx="1.5" fill="#eef2ef"/><rect x="141" y="166.5" width="14" height="1.6" fill="#1f6b4a"/><rect x="141" y="169" width="9" height="1.6" fill="#1f6b4a"/>
-          <rect x="70" y="164" width="4" height="8" fill="#d9b25a"/>
+          <rect x="70" y="164" width="4" height="8" fill="#d9b25a"/><circle class="lux" cx="166" cy="168" r="1.8" fill="#ffffff"/>
         </g>
       </g>
 
@@ -325,21 +334,21 @@ body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--s
           <path d="M46 202 H130 L122 210 H46Z" fill="#3a3338"/><path d="M230 242 H146 L154 234 H230Z" fill="#3a3338"/>
           <g><circle cx="90" cy="222" r="22" fill="#211d20" stroke="#4a4248"/><g class="fan" fill="#5a5157"><use href="#blades" transform="translate(90 222) scale(1.25)"/><use href="#blades" transform="translate(90 222) rotate(72) scale(1.25)"/><use href="#blades" transform="translate(90 222) rotate(144) scale(1.25)"/><use href="#blades" transform="translate(90 222) rotate(216) scale(1.25)"/><use href="#blades" transform="translate(90 222) rotate(288) scale(1.25)"/><circle cx="90" cy="222" r="21" fill="none"/></g><circle cx="90" cy="222" r="6" fill="#3a3338"/></g>
           <g><circle cx="186" cy="222" r="22" fill="#211d20" stroke="#4a4248"/><g class="fan" fill="#5a5157"><use href="#blades" transform="translate(186 222) scale(1.25)"/><use href="#blades" transform="translate(186 222) rotate(72) scale(1.25)"/><use href="#blades" transform="translate(186 222) rotate(144) scale(1.25)"/><use href="#blades" transform="translate(186 222) rotate(216) scale(1.25)"/><use href="#blades" transform="translate(186 222) rotate(288) scale(1.25)"/><circle cx="186" cy="222" r="21" fill="none"/></g><circle cx="186" cy="222" r="6" fill="#3a3338"/></g>
-          <rect x="44" y="246" width="188" height="2.5" rx="1.25" fill="#f7b8cc" opacity=".75"/>
+          <rect class="lux" x="44" y="245.5" width="188" height="3" rx="1.5" fill="url(#strip)"/><rect class="lux2" x="46" y="198" width="70" height="2.5" rx="1.25" fill="#ffc2d9"/>
         </g>
       </g>
 
-      <!-- ventiladores ARGB laterales -->
-      <g data-p="fans">
-        <rect class="ghost" x="248" y="42" width="56" height="56" rx="12"/><rect class="ghost" x="248" y="122" width="56" height="56" rx="12"/><rect class="ghost" x="248" y="202" width="56" height="56" rx="12"/>
+      <!-- ventiladores (vienen con el gabinete) -->
+      <g data-p="case">
         <g class="pt">
+          <g class="bloom" fill="url(#bloom)"><circle cx="276" cy="70" r="36"/><circle cx="276" cy="150" r="36"/><circle cx="276" cy="230" r="36"/></g>
           <g fill="#ffffff" stroke="#ece2e7" filter="url(#sh)">
             <rect x="248" y="42" width="56" height="56" rx="12"/><rect x="248" y="122" width="56" height="56" rx="12"/><rect x="248" y="202" width="56" height="56" rx="12"/>
           </g>
           <g class="huer">
-            <circle class="rgbl" cx="276" cy="70" r="24" fill="none" stroke="url(#rgbg)" stroke-width="4.5"/>
-            <circle class="rgbl" cx="276" cy="150" r="24" fill="none" stroke="url(#rgbg)" stroke-width="4.5"/>
-            <circle class="rgbl" cx="276" cy="230" r="24" fill="none" stroke="url(#rgbg)" stroke-width="4.5"/>
+            <circle class="rgbl flow" cx="276" cy="70" r="24" fill="none" stroke="url(#rgbg)" stroke-width="4.5"/>
+            <circle class="rgbl flow" cx="276" cy="150" r="24" fill="none" stroke="url(#rgbg)" stroke-width="4.5"/>
+            <circle class="rgbl flow" cx="276" cy="230" r="24" fill="none" stroke="url(#rgbg)" stroke-width="4.5"/>
           </g>
           <g fill="#e8dce2">
             <g class="fan"><use href="#blades" transform="translate(276 70) scale(1.2)"/><use href="#blades" transform="translate(276 70) rotate(72) scale(1.2)"/><use href="#blades" transform="translate(276 70) rotate(144) scale(1.2)"/><use href="#blades" transform="translate(276 70) rotate(216) scale(1.2)"/><use href="#blades" transform="translate(276 70) rotate(288) scale(1.2)"/><circle cx="276" cy="70" r="20" fill="none"/></g>
@@ -401,12 +410,12 @@ body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--s
 <script>
 /* ====== CONFIGURACIÓN: todo lo editable de la app está aquí ====== */
 const CONFIG = /*CONFIG*/{
-  "version": "2.0",
+  "version": "2.1",
   "titulo": "Mi PC gamer 💗",
   "subtitulo": "Cada esfuerzo te acerca un poquito mas :3",
   "pie": "Con mucho amors de Mati.",
   "botonGuardar": "Guardar 💗",
-  "gananciaPorTurno": 30000,
+  "gananciaPorTurno": 40000,
   "botonesRapidos": [
     5000,
     10000,
@@ -440,56 +449,42 @@ const CONFIG = /*CONFIG*/{
       "emoji": "💾",
       "nombre": "Disco SSD M.2",
       "descripcion": "WD Green SN3000 · 1 TB · guarda tus juegos",
-      "precio": 150000,
+      "precio": 149990,
       "grupo": "primero"
     },
     {
       "emoji": "🧠",
       "nombre": "Procesador",
       "descripcion": "AMD Ryzen 5 5500 · el cerebro",
-      "precio": 90000,
+      "precio": 94800,
       "grupo": "segundo"
     },
     {
       "emoji": "🔌",
       "nombre": "Placa madre",
-      "descripcion": "Conecta todo · B550",
-      "precio": 80000,
+      "descripcion": "MSI A520M PRO · conecta todo",
+      "precio": 57990,
       "grupo": "flex"
     },
     {
       "emoji": "⚡",
       "nombre": "Fuente de poder",
-      "descripcion": "650 W · le da energía",
-      "precio": 40000,
+      "descripcion": "MSI MAG A650BN · 650 W · le da energía",
+      "precio": 44700,
       "grupo": "flex"
     },
     {
       "emoji": "🏠",
       "nombre": "Gabinete",
-      "descripcion": "Sama Neview 3321 · blanco",
-      "precio": 45000,
-      "grupo": "flex"
-    },
-    {
-      "emoji": "❄️",
-      "nombre": "Disipador",
-      "descripcion": "Thermalright ARGB · blanco",
-      "precio": 20000,
-      "grupo": "flex"
-    },
-    {
-      "emoji": "🌀",
-      "nombre": "Ventiladores",
-      "descripcion": "3 ventiladores ARGB blancos",
-      "precio": 20000,
+      "descripcion": "Formula V Line Crystal Z1CM Plus · blanco",
+      "precio": 34990,
       "grupo": "flex"
     },
     {
       "emoji": "🎮",
       "nombre": "Tarjeta de video",
-      "descripcion": "Segunda mano · para jugar fluido",
-      "precio": 210000,
+      "descripcion": "RTX 3050",
+      "precio": 200000,
       "grupo": "final"
     }
   ],
@@ -581,7 +576,8 @@ const CONFIG = /*CONFIG*/{
     if(next){const k=Math.ceil(next.left/ps);$('nextIc').textContent=next.ic||'✨';$('nextName').textContent=next.n;$('nextLbl').textContent='Próxima pieza';$('nextLeft').innerHTML='';const a=document.createElement('div');a.textContent='faltan '+fmt(next.left);const b=document.createElement('div');b.style.cssText='font-weight:700;color:var(--muted)';b.textContent='≈'+turnos(k);$('nextLeft').append(a,b)}
     else{$('nextIc').textContent='💗';$('nextName').textContent='Todas las piezas listas';$('nextLbl').textContent='¡Lo lograste!';$('nextLeft').textContent=''}
 
-    document.querySelectorAll('#build [data-p]').forEach(g=>g.classList.toggle('has',!!owned[g.dataset.p]));
+    const present={}; GOAL_PARTS.forEach(p=>{const k=kind(p.n);if(k)present[k]=1}); if(R&&R.mostrar){const k=kind(R.nombre);if(k)present[k]=1}
+    document.querySelectorAll('#build [data-p]').forEach(g=>{g.style.display=present[g.dataset.p]?'':'none';g.classList.toggle('has',!!owned[g.dataset.p])});
     $('buildCount').textContent=nOwned+' de '+nAll+' piezas';
     $('buildHint').textContent=nOwned>=nAll?'¡Está completo! 💗':'Las con puntitos son las que faltan';
     document.body.classList.toggle('done',GOAL>0&&t>=GOAL);
@@ -704,7 +700,7 @@ const CONFIG = /*CONFIG*/{
   let tt;
   function toast(m){const el=$('toast');el.textContent=m;el.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('on'),3200)}
   function confetti(){
-    const c=$('conf'), cols=['#ff7eb6','#f7b8cc','#b98cff','#7ee0ff','#ffd27e','#b04a6e'];
+    const c=$('conf'), cols=['#ffb3cf','#ffffff','#ff9ec4','#ffd6e5','#f56698','#fff0f6'];
     for(let i=0;i<70;i++){const p=document.createElement('i');p.style.left=Math.random()*100+'%';p.style.background=cols[i%cols.length];p.style.animationDelay=Math.random()*.6+'s';p.style.animationDuration=(1.8+Math.random()*1.4)+'s';c.appendChild(p)}
     setTimeout(()=>c.innerHTML='',3600);
   }
