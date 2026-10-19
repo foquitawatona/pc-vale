@@ -114,6 +114,29 @@ h2{display:flex;align-items:center;gap:10px;font-size:18px;margin:0 0 14px;color
 .group:first-child{margin-top:0}
 .group::after{content:"";flex:1;height:1px;background:var(--line)}
 .group+li{border-top:0!important}
+/* totales y comparación */
+.sumbox{border-top:1.5px dashed var(--line);margin-top:8px;padding-top:12px}
+.sumbox div{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-weight:700;font-size:14.5px;color:var(--muted)}
+.sumbox div b{font:600 16px 'Fredoka',system-ui,sans-serif;color:var(--text)}
+.sumbox .g,.sumbox .g b{color:var(--ink)}
+.sumbox .t{margin-top:6px;background:var(--soft);border-radius:16px;padding:12px 14px;color:var(--ink)}
+.sumbox .t b{font-size:22px;color:var(--ink)}
+.save{display:flex;justify-content:space-between;align-items:center;gap:12px;background:linear-gradient(140deg,var(--soft),var(--card));border:1px solid var(--line);border-radius:20px;padding:14px 16px}
+.save small{display:block;color:var(--muted);font-weight:600;font-size:12.5px;margin-top:3px}
+.save b{font-size:28px;font-weight:700;color:var(--ink);white-space:nowrap}
+.cmpd{margin-top:14px}
+.cmp{list-style:none;margin:10px 0 0;padding:0}
+.cmp li{display:flex;align-items:center;gap:12px;padding:10px 0}
+.cmp li+li{border-top:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.cmp .ci{flex:1;min-width:0}
+.cmp .cn{font-weight:800;font-size:14.5px}
+.cmp .cm{font-size:12.5px;font-weight:600;color:var(--text);opacity:.85}
+.cmp .co{font-size:12px;font-weight:600;color:var(--muted);opacity:.85}
+.cmp .co s{text-decoration-color:color-mix(in srgb,var(--muted) 70%,transparent)}
+.cmp .cr{display:flex;flex-direction:column;align-items:flex-end;gap:4px;white-space:nowrap}
+.cmp .cp{font:600 15px 'Fredoka',system-ui,sans-serif}
+.df{font:800 11px 'Nunito',system-ui,sans-serif;padding:3px 9px;border-radius:99px;background:var(--soft2);color:var(--ink)}
+.df.up,.df.eq{background:color-mix(in srgb,var(--muted) 12%,transparent);color:var(--muted)}
 /* historial */
 .hist{list-style:none;margin:0;padding:0}
 .hist li{display:flex;align-items:center;gap:12px;padding:11px 0}
@@ -377,6 +400,19 @@ body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--s
   <section class="card">
     <h2><span class="hi">🧩</span>Tu PC, pieza por pieza</h2>
     <ul class="parts" id="parts"></ul>
+    <div class="sumbox" id="sumbox"></div>
+  </section>
+
+  <section class="card" id="cmpCard" hidden>
+    <h2><span class="hi">🦭</span>Ahora vs. antes</h2>
+    <div class="save">
+      <div><div class="label">Te ahorras</div><small id="saveTxt"></small></div>
+      <b class="num" id="saveN">$0</b>
+    </div>
+    <details class="cmpd">
+      <summary>Ver pieza por pieza</summary>
+      <ul class="cmp" id="cmp"></ul>
+    </details>
   </section>
 
   <section class="card">
@@ -410,7 +446,7 @@ body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--s
 <script>
 /* ====== CONFIGURACIÓN: todo lo editable de la app está aquí ====== */
 const CONFIG = /*CONFIG*/{
-  "version": "2.1",
+  "version": "4.0",
   "titulo": "Mi PC gamer 💗",
   "subtitulo": "Cada esfuerzo te acerca un poquito mas :3",
   "pie": "Con mucho amors de Mati.",
@@ -434,9 +470,9 @@ const CONFIG = /*CONFIG*/{
     "mostrar": true,
     "emoji": "✨",
     "nombre": "Memoria RAM",
-    "descripcion": "Apacer NOX · 2×8 GB · regalo de Mati",
+    "descripcion": "Apacer NOX · 2×8 GB DDR4 · regalo de Mati",
     "precio": 140000,
-    "etiqueta": "Regalo 💝"
+    "etiqueta": "Regalo 🦭"
   },
   "grupos": {
     "primero": "1° · Primero",
@@ -451,13 +487,6 @@ const CONFIG = /*CONFIG*/{
       "descripcion": "WD Green SN3000 · 1 TB · guarda tus juegos",
       "precio": 149990,
       "grupo": "primero"
-    },
-    {
-      "emoji": "🧠",
-      "nombre": "Procesador",
-      "descripcion": "AMD Ryzen 5 5500 · el cerebro",
-      "precio": 94800,
-      "grupo": "segundo"
     },
     {
       "emoji": "🔌",
@@ -493,6 +522,89 @@ const CONFIG = /*CONFIG*/{
     "50": "¡La mitad! vas bombaa💣",
     "75": "¡75%! Ya estas casi!! 🎮",
     "100": "¡TU PC ESTÁ COMPLETO! VALEEEEE! Felicidades!!🎉"
+  },
+  "regalosExtra": [
+    {
+      "mostrar": true,
+      "emoji": "🧠",
+      "nombre": "Procesador",
+      "descripcion": "AMD Ryzen 5 3600 · el cerebro · regalo de Mati",
+      "precio": 60000,
+      "etiqueta": "Regalo 🦭"
+    }
+  ],
+  "comparacion": {
+    "mostrar": true,
+    "planOriginal": 695000,
+    "piezas": [
+      {
+        "nombre": "Procesador",
+        "ahora": "AMD Ryzen 5 3600",
+        "precioAhora": 0,
+        "regalo": true,
+        "antes": "Ryzen 5 5600X",
+        "precioAntes": 130000
+      },
+      {
+        "nombre": "Memoria RAM",
+        "ahora": "Apacer NOX · 2×8 GB DDR4",
+        "precioAhora": 0,
+        "regalo": true,
+        "antes": "la misma, también de regalo",
+        "precioAntes": 0,
+        "igual": true
+      },
+      {
+        "nombre": "Placa madre",
+        "ahora": "MSI A520M PRO",
+        "precioAhora": 57990,
+        "antes": "ASUS PRIME B550M-K ARGB",
+        "precioAntes": 80000
+      },
+      {
+        "nombre": "Fuente de poder",
+        "ahora": "MSI MAG A650BN · 650 W",
+        "precioAhora": 44700,
+        "antes": "ASUS PRIME 650B",
+        "precioAntes": 40000
+      },
+      {
+        "nombre": "Gabinete",
+        "ahora": "Formula V Line Crystal Z1CM Plus",
+        "precioAhora": 34990,
+        "antes": "Sama Neview 3321",
+        "precioAntes": 45000
+      },
+      {
+        "nombre": "Disco SSD",
+        "ahora": "WD Green SN3000 · 1 TB",
+        "precioAhora": 149990,
+        "antes": "el mismo",
+        "precioAntes": 150000,
+        "igual": true
+      },
+      {
+        "nombre": "Tarjeta de video",
+        "ahora": "RTX 3050",
+        "precioAhora": 200000,
+        "antes": "RTX 3050",
+        "precioAntes": 210000
+      },
+      {
+        "nombre": "Disipador",
+        "ahora": "No se compra aparte",
+        "precioAhora": 0,
+        "antes": "Thermalright Assassin X 120 SE",
+        "precioAntes": 20000
+      },
+      {
+        "nombre": "Ventiladores ×3",
+        "ahora": "Por ahora no",
+        "precioAhora": 0,
+        "antes": "Thermalright TL-C12CW-S",
+        "precioAntes": 20000
+      }
+    ]
   }
 }/*FIN*/;
 /* ================================================================= */
@@ -557,7 +669,8 @@ const CONFIG = /*CONFIG*/{
     const flex=GOAL_PARTS.filter(p=>p.g==='flex'), flexTotal=flex.reduce((a,b)=>a+b.p,0);
     const addGroup=txt=>{const g=document.createElement('div');g.className='group';g.textContent=txt;ul.appendChild(g)};
     const R=C.regalo;
-    if(R&&R.mostrar){own(R.nombre,true);addGroup('Ya lo tienes');ul.appendChild(partLi({ic:R.emoji,n:R.nombre,d:R.descripcion,p:R.precio},'gift',1,R.etiqueta))}
+    const GIFTS=[R].concat(C.regalosExtra||[]).filter(g=>g&&g.mostrar);
+    if(GIFTS.length){addGroup('Ya lo tienes');GIFTS.forEach(g=>{own(g.nombre,true);ul.appendChild(partLi({ic:g.emoji,n:g.nombre,d:g.descripcion,p:g.precio},'gift',1,g.etiqueta))})}
     GOAL_PARTS.forEach(p=>{
       if(p.g==='flex'){
         if(lastG!=='flex'){
@@ -576,8 +689,13 @@ const CONFIG = /*CONFIG*/{
     if(next){const k=Math.ceil(next.left/ps);$('nextIc').textContent=next.ic||'✨';$('nextName').textContent=next.n;$('nextLbl').textContent='Próxima pieza';$('nextLeft').innerHTML='';const a=document.createElement('div');a.textContent='faltan '+fmt(next.left);const b=document.createElement('div');b.style.cssText='font-weight:700;color:var(--muted)';b.textContent='≈'+turnos(k);$('nextLeft').append(a,b)}
     else{$('nextIc').textContent='💗';$('nextName').textContent='Todas las piezas listas';$('nextLbl').textContent='¡Lo lograste!';$('nextLeft').textContent=''}
 
-    const present={}; GOAL_PARTS.forEach(p=>{const k=kind(p.n);if(k)present[k]=1}); if(R&&R.mostrar){const k=kind(R.nombre);if(k)present[k]=1}
+    const present={}; GOAL_PARTS.forEach(p=>{const k=kind(p.n);if(k)present[k]=1}); GIFTS.forEach(g=>{const k=kind(g.nombre);if(k)present[k]=1})
     document.querySelectorAll('#build [data-p]').forEach(g=>{g.style.display=present[g.dataset.p]?'':'none';g.classList.toggle('has',!!owned[g.dataset.p])});
+    const giftTot=GIFTS.reduce((a,g)=>a+(+g.precio||0),0);
+    const sb=$('sumbox'); sb.innerHTML='';
+    const line=(cls,lbl,val)=>{const d=document.createElement('div');if(cls)d.className=cls;const s=document.createElement('span');s.textContent=lbl;const b=document.createElement('b');b.textContent=val;d.append(s,b);sb.appendChild(d)};
+    if(giftTot){line('','Subtotal',fmt(GOAL+giftTot));line('g','Regalos de Mati 🦭','−'+fmt(giftTot))}
+    line('t','Total a pagar',fmt(GOAL));
     $('buildCount').textContent=nOwned+' de '+nAll+' piezas';
     $('buildHint').textContent=nOwned>=nAll?'¡Está completo! 💗':'Las con puntitos son las que faltan';
     document.body.classList.toggle('done',GOAL>0&&t>=GOAL);
@@ -716,6 +834,29 @@ const CONFIG = /*CONFIG*/{
 
   load();
   $('perShift').value=(state.perShift||30000).toLocaleString('es-CL');
+  (function renderCmp(){
+    const K=C.comparacion; if(!K||!K.mostrar||!Array.isArray(K.piezas))return;
+    $('cmpCard').hidden=false;
+    const ahorro=Math.max(0,(+K.planOriginal||0)-GOAL);
+    $('saveN').textContent=fmt(ahorro);
+    $('saveTxt').textContent='Plan original '+fmt(+K.planOriginal||0)+' → ahora pagas '+fmt(GOAL);
+    const ul=$('cmp'); ul.innerHTML='';
+    K.piezas.forEach(x=>{
+      const li=document.createElement('li');
+      li.innerHTML='<div class="ci"><div class="cn"></div><div class="cm"></div><div class="co"></div></div><div class="cr"><span class="cp"></span><span class="df"></span></div>';
+      li.querySelector('.cn').textContent=x.nombre;
+      li.querySelector('.cm').textContent=x.ahora;
+      const co=li.querySelector('.co'); co.textContent='antes: ';
+      const txt=x.antes+(x.precioAntes&&!x.igual?' · '+fmt(x.precioAntes):(x.igual&&x.precioAntes?', a '+fmt(x.precioAntes):''));
+      if(x.igual){co.append(txt)}else{const s=document.createElement('s');s.textContent=txt;co.appendChild(s)}
+      li.querySelector('.cp').textContent=x.regalo?'Regalo 🦭':fmt(x.precioAhora||0);
+      const d=(+x.precioAhora||0)-(+x.precioAntes||0), df=li.querySelector('.df');
+      if(x.igual||Math.abs(d)<1000){df.textContent='Igual';df.classList.add('eq')}
+      else if(d<0){df.textContent='−'+fmt(-d)}
+      else{df.textContent='+'+fmt(d);df.classList.add('up')}
+      ul.appendChild(li);
+    });
+  })();
   render(); booted=true;
 })();
 </script>
