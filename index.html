@@ -121,6 +121,7 @@ h2{display:flex;align-items:center;gap:10px;font-size:18px;margin:0 0 14px;color
 .sumbox .g,.sumbox .g b{color:var(--ink)}
 .sumbox .t{margin-top:6px;background:var(--soft);border-radius:16px;padding:12px 14px;color:var(--ink)}
 .sumbox .t b{font-size:22px;color:var(--ink)}
+.loannote{margin:10px 2px 0;text-align:center;font-size:12.5px;font-weight:700;color:var(--muted)}
 .save{display:flex;justify-content:space-between;align-items:center;gap:12px;background:linear-gradient(140deg,var(--soft),var(--card));border:1px solid var(--line);border-radius:20px;padding:14px 16px}
 .save small{display:block;color:var(--muted);font-weight:600;font-size:12.5px;margin-top:3px}
 .save b{font-size:28px;font-weight:700;color:var(--ink);white-space:nowrap}
@@ -446,7 +447,7 @@ body.done .hero-card{background:linear-gradient(165deg,color-mix(in srgb,var(--s
 <script>
 /* ====== CONFIGURACIÓN: todo lo editable de la app está aquí ====== */
 const CONFIG = /*CONFIG*/{
-  "version": "4.0",
+  "version": "4.1",
   "titulo": "Mi PC gamer 💗",
   "subtitulo": "Cada esfuerzo te acerca un poquito mas :3",
   "pie": "Con mucho amors de Mati.",
@@ -605,6 +606,12 @@ const CONFIG = /*CONFIG*/{
         "precioAntes": 20000
       }
     ]
+  },
+  "prestamo": {
+    "mostrar": true,
+    "monto": 60000,
+    "texto": "Préstamo de Mati 🦭",
+    "nota": "Mati te presta $60.000 para completar tu PC 💗"
   }
 }/*FIN*/;
 /* ================================================================= */
@@ -631,7 +638,9 @@ const CONFIG = /*CONFIG*/{
   const ORD={primero:0,segundo:1,flex:2,final:3};
   const GOAL_PARTS=(C.piezas||[]).map((p,i)=>({n:p.nombre,d:p.descripcion,p:Math.max(0,+p.precio||0),ic:p.emoji,g:p.grupo in ORD?p.grupo:'flex',i}))
     .filter(p=>p.p>0).sort((a,b)=>ORD[a.g]-ORD[b.g]||a.i-b.i);
-  const GOAL=GOAL_PARTS.reduce((a,b)=>a+b.p,0);
+  const PARTS_TOTAL=GOAL_PARTS.reduce((a,b)=>a+b.p,0);
+  const LOAN=(C.prestamo&&C.prestamo.mostrar)?Math.min(PARTS_TOTAL,Math.max(0,+C.prestamo.monto||0)):0;
+  const GOAL=PARTS_TOTAL-LOAN;
 
   let state={perShift:C.gananciaPorTurno||30000,entries:[],hit:[]};
   let storageOk=true;
@@ -663,7 +672,7 @@ const CONFIG = /*CONFIG*/{
     $('turnosTxt').textContent=left?(tn===1?'turno de trabajo más y tu PC está completo':'turnos de trabajo más y tu PC está completo'):'¡Juntaste todo! Tu PC está completo';
     $('etaTxt').textContent=eta(left,ps);
 
-    let rem=t; const ul=$('parts'); ul.innerHTML=''; const owned={}; let nOwned=0, nAll=0;
+    let rem=t+LOAN; const ul=$('parts'); ul.innerHTML=''; const owned={}; let nOwned=0, nAll=0;
     const own=(name,ok)=>{nAll++; if(ok){nOwned++; const k=kind(name); if(k) owned[k]=true;}};
     let next=null, lastG='', pool=0, pool2=0;
     const flex=GOAL_PARTS.filter(p=>p.g==='flex'), flexTotal=flex.reduce((a,b)=>a+b.p,0);
@@ -694,8 +703,11 @@ const CONFIG = /*CONFIG*/{
     const giftTot=GIFTS.reduce((a,g)=>a+(+g.precio||0),0);
     const sb=$('sumbox'); sb.innerHTML='';
     const line=(cls,lbl,val)=>{const d=document.createElement('div');if(cls)d.className=cls;const s=document.createElement('span');s.textContent=lbl;const b=document.createElement('b');b.textContent=val;d.append(s,b);sb.appendChild(d)};
-    if(giftTot){line('','Subtotal',fmt(GOAL+giftTot));line('g','Regalos de Mati 🦭','−'+fmt(giftTot))}
+    if(giftTot||LOAN)line('','Subtotal',fmt(PARTS_TOTAL+giftTot));
+    if(giftTot)line('g','Regalos de Mati 🦭','−'+fmt(giftTot));
+    if(LOAN)line('g','Préstamo de Mati 🦭','−'+fmt(LOAN));
     line('t','Total a pagar',fmt(GOAL));
+    if(LOAN&&C.prestamo.nota){const n=document.createElement('p');n.className='loannote';n.textContent=C.prestamo.nota;sb.appendChild(n)}
     $('buildCount').textContent=nOwned+' de '+nAll+' piezas';
     $('buildHint').textContent=nOwned>=nAll?'¡Está completo! 💗':'Las con puntitos son las que faltan';
     document.body.classList.toggle('done',GOAL>0&&t>=GOAL);
@@ -837,9 +849,9 @@ const CONFIG = /*CONFIG*/{
   (function renderCmp(){
     const K=C.comparacion; if(!K||!K.mostrar||!Array.isArray(K.piezas))return;
     $('cmpCard').hidden=false;
-    const ahorro=Math.max(0,(+K.planOriginal||0)-GOAL);
+    const ahorro=Math.max(0,(+K.planOriginal||0)-PARTS_TOTAL);
     $('saveN').textContent=fmt(ahorro);
-    $('saveTxt').textContent='Plan original '+fmt(+K.planOriginal||0)+' → ahora pagas '+fmt(GOAL);
+    $('saveTxt').textContent='Plan original '+fmt(+K.planOriginal||0)+' → ahora cuesta '+fmt(PARTS_TOTAL);
     const ul=$('cmp'); ul.innerHTML='';
     K.piezas.forEach(x=>{
       const li=document.createElement('li');

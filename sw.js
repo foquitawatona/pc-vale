@@ -1,5 +1,5 @@
 // Cambia este número cada vez que subas una versión nueva
-const VERSION = 'pc-vale-v4.0';
+const VERSION = 'pc-vale-v4.1';
 const ARCHIVOS = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', e => {
